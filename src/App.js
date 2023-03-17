@@ -1,36 +1,38 @@
 import logo from './logo.svg';
 import './App.css';
-import profilePic from './assets/images/profile pic.jpg'
-import profileVid from "./assets/videos/Y2Mate.is - Joel's S14 Short  4K-fVr_yM5Q1vs-720p-1654298027861.mp4"
-import ReactPlayer from 'react-player';
-
+import React, { useState } from 'react';
 
 function App() {
+  /**
+   * this code has a bug
+   * the play/pause btn works properly 2 times, then stops working
+   * the bug will be fixed in the next commit. 
+   */
 
-  let videoClassCss = {
-    display : 'flex', 
-    alignItems : 'center',
-    justifyContent : 'center' 
+  let audio1 = new Audio("https://upload.wikimedia.org/wikipedia/commons/9/9b/Hydroprogne_caspia_-_Caspian_Tern_XC432679.mp3");
+
+  // create a state variable to keep track of whether the audio is playing or paused
+  const [audioString, setIsPlaying] = useState('Play');
+  // create an event handler to toggle the state of the isPlaying variable and play or pause the audio
+  const handleAudioToggle = () => {
+    setIsPlaying(false)
+    if (audio1.paused) {
+      audio1.play(); 
+      setIsPlaying("Pause")
+      console.log('played')
+
+    } else {
+      audio1.pause();
+      setIsPlaying("Play")
+      console.log('paused')
+    }
+    
   }
-  
+
   return (
     <div className="App">
-      <h1>
-        Task: add 1 image and 2 videos
-      </h1>
-      <h4>Fav Picture</h4>
-      <img
-        height={200}
-        src = {profilePic}
-        alt = "An img of a Samuel"
-      />
-      <h4>Fav Video</h4>
-      <video src={profileVid} height = {200} controls/>
-      <h4>Fav YouTube Video</h4>
-      <div style={videoClassCss}>
-        <ReactPlayer height={200} width={400} url="https://www.youtube.com/watch?v=-621SEHkfIM&ab_channel=OVTL%CE%94W"/>
-      </div>
-      
+      {/* add a button that can play and pause the audio */}
+      <button onClick={handleAudioToggle}>{audioString}</button>
     </div>
   );
 }
